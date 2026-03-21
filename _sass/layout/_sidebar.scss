@@ -67,6 +67,11 @@ $sidebar-display: 'sidebar-display'; /* the attribute for sidebar display */
     }
 
     img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* Vertical focus: default was ~center. Lower % = anchor higher in the photo = show more of the lower part (e.g. face). Try 30%–45%. */
+      object-position: center 38%;
       transition: transform 0.5s;
 
       &:hover {

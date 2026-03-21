@@ -26,5 +26,9 @@
   // Run tasks in macOS
   "terminal.integrated.profiles.osx": {
     "zsh": { "path": "/bin/zsh", "args": ["-l", "-i"] }
+  },
+  // Prepend tools when Cursor’s terminal omits User PATH (ruby/bundle; node/npm after Node.js install).
+  "terminal.integrated.env.windows": {
+    "Path": "C:\\Ruby40-x64\\bin;C:\\Program Files\\nodejs;${env:Path}"
   }
 }
