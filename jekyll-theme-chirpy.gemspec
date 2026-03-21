@@ -23,7 +23,8 @@ Gem::Specification.new do |spec|
     "plugin_type"       => "theme"
   }
 
-  spec.required_ruby_version = "~> 3.1"
+  # Upstream uses ~> 3.1; allow Ruby 4.x for local dev (RubyInstaller may default to 4.x).
+  spec.required_ruby_version = ">= 3.1"
 
   spec.add_runtime_dependency "jekyll", "~> 4.3"
   spec.add_runtime_dependency "jekyll-paginate", "~> 1.1"
