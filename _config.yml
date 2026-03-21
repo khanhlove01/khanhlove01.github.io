@@ -23,7 +23,7 @@ description: >- # used by seo meta and the atom feed
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: ""
+url: "https://khanhlove01.github.io"
 
 github:
   username: khanhlove01 # change to your GitHub username
@@ -107,6 +107,7 @@ avatar: "/assets/img/avatar.jpg"
 social_preview_image: # string, local or CORS resources
 
 # boolean type, the global switch for TOC in posts.
+
 toc: true
 
 comments:
@@ -147,6 +148,7 @@ pwa:
     # Usually its value is the `baseurl` of another website that
     # shares the same domain name as the current website.
     deny_paths:
+      - "/assets/img" # profile images / favicons: avoid stale SW cache when files are replaced at the same URL
       # - "/example"  # URLs match `<SITE_URL>/example/*` will not be cached by the PWA
 
 paginate: 10
