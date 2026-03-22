@@ -38,6 +38,10 @@
     border-right: none;
     padding-left: 2rem;
 
+    .categories-sub .list-group-item {
+      padding-left: 0.25rem;
+    }
+
     &:first-child {
       border-top-left-radius: 0;
       border-top-right-radius: 0;
