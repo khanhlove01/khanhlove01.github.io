@@ -103,8 +103,24 @@ layout: page
         <div id="{{ LIST_PREFIX }}{{ group_index }}" class="collapse show" aria-expanded="true">
           <ul class="list-group">
             {% for sub_category in sub_categories %}
+              {% assign sub_sub_categories = '' | split: '' %}
+              {% for post in posts_of_category %}
+                {% if post.categories[0] == category_name and post.categories[1] == sub_category %}
+                  {% assign third_category = post.categories[2] %}
+                  {% if third_category %}
+                    {% unless sub_sub_categories contains third_category %}
+                      {% assign sub_sub_categories = sub_sub_categories | push: third_category %}
+                    {% endunless %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              {% assign sub_sub_categories = sub_sub_categories | sort %}
+              {% assign sub_sub_categories_size = sub_sub_categories | size %}
+
               <li class="list-group-item">
-                <i class="far fa-folder fa-fw"></i>
+                <i
+                  class="far fa-folder{% if sub_sub_categories_size > 0 %}-open{% endif %} fa-fw"
+                ></i>
 
                 {% capture _sub_ctg_url %}/categories/{{ sub_category | slugify | url_encode }}/{% endcapture %}
                 <a href="{{ _sub_ctg_url | relative_url }}" class="mx-2">{{ sub_category }}</a>
@@ -125,6 +141,38 @@ layout: page
                     }}
                   {% endif %}
                 </span>
+
+                {% if sub_sub_categories_size > 0 %}
+                  <ul class="list-group list-group-flush categories-sub ms-3 mt-2 mb-0 border-0">
+                    {% for sub_sub_category in sub_sub_categories %}
+                      <li class="list-group-item border-0 px-0 py-1">
+                        <i class="far fa-folder fa-fw"></i>
+
+                        {% capture _sub_sub_url %}/categories/{{ sub_sub_category | slugify | url_encode }}/{% endcapture %}
+                        <a href="{{ _sub_sub_url | relative_url }}" class="mx-2">
+                          {{- sub_sub_category -}}
+                        </a>
+
+                        {% assign deep_posts_size = site.categories[sub_sub_category] | size %}
+                        <span class="text-muted small font-weight-light">
+                          {{ deep_posts_size }}
+
+                          {% if deep_posts_size > 1 %}
+                            {{
+                              site.data.locales[lang].categories.post_measure.plural
+                              | default: site.data.locales[lang].categories.post_measure
+                            }}
+                          {% else %}
+                            {{
+                              site.data.locales[lang].categories.post_measure.singular
+                              | default: site.data.locales[lang].categories.post_measure
+                            }}
+                          {% endif %}
+                        </span>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
               </li>
             {% endfor %}
           </ul>
